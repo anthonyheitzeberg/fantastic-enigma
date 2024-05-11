@@ -1,28 +1,26 @@
-// main.cpp
-#include <iostream>
 #include "DoublyLinkedList.h"
-#include "gtest/gtest.h"
+#include "WebPage.h"
+#include <chrono>
 
-// Define your unit tests here using Google Test framework
-TEST(DoublyLinkedListTest, PushBackAndPopBack) {
-    DoublyLinkedList<int> list;
-    list.push_back(5);
-    list.push_back(10);
-    list.push_back(15);
+int main() {
+    // Create a doubly linked list of WebPage objects
+    DoublyLinkedList<WebPage> browserHistory;
 
-    ASSERT_EQ(list.getSize(), 3);
+    // Add elements to the browser history
+    browserHistory.push_back(WebPage("https://www.example.com", "Example", std::chrono::system_clock::now()));
+    browserHistory.push_back(WebPage("https://www.google.com", "Google", std::chrono::system_clock::now()));
+    browserHistory.push_back(WebPage("https://www.github.com", "GitHub", std::chrono::system_clock::now()));
 
-    list.pop_back();
-    ASSERT_EQ(list.getSize(), 2);
+    // Display the browser history
+    std::cout << "Browser History:" << std::endl;
+    browserHistory.displayHistory();
 
-    list.pop_back();
-    ASSERT_EQ(list.getSize(), 1);
+    // Remove elements from the browser history
+    browserHistory.pop_back();
 
-    list.pop_back();
-    ASSERT_EQ(list.getSize(), 0);
-}
+    // Display the updated browser history
+    std::cout << "\nUpdated Browser History:" << std::endl;
+    browserHistory.displayHistory();
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    return 0;
 }
